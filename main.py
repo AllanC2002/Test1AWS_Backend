@@ -14,7 +14,11 @@ def clima():
     if response.status_code == 200:
         data = response.json()
         temperature = data["current_weather"]["temperature"]
-        return jsonify(temperature)
+        print(type(temperature))
+        if temperature <= 30.0:
+            return jsonify({"temperature": "Esta haciendo menos de 30 grados"})
+        else:
+            return jsonify({"temperature": temperature})
     else:
         return jsonify({'error': 'No se pudo obtener el clima'}), 500
 
@@ -28,15 +32,13 @@ def pais():
         data = response.json()[0]
         capital = data['capital'][0]
         lat, lon = data['capitalInfo']['latlng']
-        """
-        registros.insert_one({ #bd
-            "nombre": name,
-            "capital": capital,
-            "latitud": lat,
-            "longitud": lon
-        })
-        """
-        return jsonify([capital, lat, lon])
+
+        print(type(capital))
+        if capital == "Quito":
+            capital = "Eres de mi pais"
+            return jsonify([capital, lat, lon])
+        else:
+            return jsonify([capital, lat, lon])
     else:
         return jsonify({'error': 'No se pudo obtener el país'}), 500
 
