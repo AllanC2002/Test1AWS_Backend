@@ -28,6 +28,7 @@ def pais():
     url = f'https://restcountries.com/v3.1/name/{name}'
     response = requests.get(url)
 
+
     if response.status_code == 200:
         data = response.json()[0]
         capital = data['capital'][0]
